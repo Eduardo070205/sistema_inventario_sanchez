@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Entregas</title>
+    <link rel="stylesheet" href="css/entregas.css">
+</head>
+<body>
+    <div class="container">
+   
+        <div id="header"></div>
+
+        <script>
+            fetch('componentes/header.html')
+            .then(response => response.text())
+            .then(html => document.getElementById('header').innerHTML = html);
+        </script>
+
+        <main class="main-content">
+            <div class="content-grid">
+                <aside class="left-panel">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
+                        </div>
+                        <p class="profile-label">Usuario ####</p>
+                    </div>
+
+                    <div class="form-section">
+                        <input type="text" class="search-input" placeholder="Buscar por Cliente">
+                        <input type="text" class="search-input" placeholder="Buscar por Producto">
+                        <input type="date" class="search-input">
+                        <div class="buttons-group">
+                            <button class="btn btn-primary">Añadir</button>
+                            <button class="btn btn-primary">Eliminar</button>
+                            <button class="btn btn-primary">Consultar</button>
+                            <button class="btn btn-primary">Cambiar</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="right-panel">
+                    <div class="deliveries-table-container">
+                        <h3>Registros de Entregas</h3>
+                        <table class="deliveries-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cliente</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Empresa ABC</td>
+                                    <td>Laptop HP</td>
+                                    <td>5</td>
+                                    <td>2026-03-15</td>
+                                    <td><span class="status delivered">Entregado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Tienda XYZ</td>
+                                    <td>Monitor Samsung</td>
+                                    <td>10</td>
+                                    <td>2026-03-18</td>
+                                    <td><span class="status pending">Pendiente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Oficina Central</td>
+                                    <td>Teclado Mecánico</td>
+                                    <td>20</td>
+                                    <td>2026-03-19</td>
+                                    <td><span class="status in-transit">En Tránsito</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Distribuidora MX</td>
+                                    <td>Mouse Inalámbrico</td>
+                                    <td>50</td>
+                                    <td>2026-03-20</td>
+                                    <td><span class="status delivered">Entregado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Retail Store</td>
+                                    <td>Cable USB-C</td>
+                                    <td>100</td>
+                                    <td>2026-03-21</td>
+                                    <td><span class="status pending">Pendiente</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
