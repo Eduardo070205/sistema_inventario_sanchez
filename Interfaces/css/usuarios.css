@@ -139,7 +139,7 @@
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(135deg, #fefefe 0%, #42a5f5 100%);
+    background: linear-gradient(135deg, #9ed9fd 0%, #42a5f5 100%);
 }
 
 .btn-primary:active {

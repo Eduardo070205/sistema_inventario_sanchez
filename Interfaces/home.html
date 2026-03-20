@@ -12,9 +12,13 @@
         <div id="header"></div>
 
         <script>
+            window.pageTitle = 'Inicio';
             fetch('componentes/header.html')
             .then(response => response.text())
-            .then(html => document.getElementById('header').innerHTML = html);
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle || "Materiales de Construcción Sánchez";
+            });
         </script>
 
     </div>
