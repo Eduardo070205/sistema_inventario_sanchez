@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Usuarios</title>
+    <link rel="stylesheet" href="css/usuarios.css">
+</head>
+<body>
+    <div class="container">
+   
+        <header class="header">
+            <div class="header-content">
+                <h1>Registros de Usuarios</h1>
+                <div class="header-icons">
+                    <a class="icon-btn" title="Inicio">
+                        <img src="img/home.png" alt="Botón Inicio" class="icon-btn">
+                    </a>
+                    <a class="icon-btn" title="Salir">
+                        <img src="img/exit.png" alt="Botón Salir" class="icon-btn">
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="content-grid">
+                <aside class="left-panel">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
+                        </div>
+                        <p class="profile-label">Usuario ####</p>
+                    </div>
+
+                    <div class="form-section">
+                        <input type="text" class="username-input" placeholder="Nombre Usuario">
+                        <div class="buttons-group">
+                            <button class="btn btn-primary">Añadir</button>
+                            <button class="btn btn-primary">Eliminar</button>
+                            <button class="btn btn-primary">Consultar</button>
+                            <button class="btn btn-primary">Cambiar</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="right-panel">
+                    <div class="users-table-container">
+                        <h3>Lista de Usuarios</h3>
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre de Usuario</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>usuario_ejemplo1</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>usuario_ejemplo2</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>usuario_ejemplo3</td>
+                                    <td><span class="status inactive">Inactivo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>usuario_ejemplo4</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>usuario_ejemplo5</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
