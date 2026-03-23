@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Ventas</title>
+    <link rel="stylesheet" href="css/ventas.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <script>
+            window.pageTitle = 'Registros de Ventas';
+            fetch('componentes/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle;
+            });
+        </script>
+        <main class="main-content">
+            <div class="content-grid">
+                <aside class="left-panel">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
+                        </div>
+                        <p class="profile-label">Usuario ####</p>
+                    </div>
+                    <div class="form-section">
+                        <input type="text" class="username-input" placeholder="Entrada Registros">
+                        <div class="buttons-group">
+                            <button class="btn btn-primary">Añadir</button>
+                            <button class="btn btn-primary">Eliminar</button>
+                            <button class="btn btn-primary">Consultar</button>
+                            <button class="btn btn-primary">Cambiar</button>
+                        </div>
+                    </div>
+                </aside>
+                <section class="right-panel">
+                    <div class="reports-table-container">
+                        <h3>Lista de Ventas</h3>
+                        <table class="reports-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Descripción</th>
+                                    <th>Estado</th>
+                                    <th>Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>22/06/2023</td>
+                                    <td>Venta Ejemplo</td>
+                                    <td>Registro inicial</td>
+                                    <td>Activo</td>
+                                    <td>Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registros de Usuarios</title>
-    <link rel="stylesheet" href="css/usuarios.css">
+    <title>Registros de Reportes</title>
+    <link rel="stylesheet" href="css/reportes.css">
 </head>
 <body>
     <div class="container">
@@ -12,7 +12,7 @@
         <div id="header"></div>
 
         <script>
-            window.pageTitle = 'Registrar Usuarios';
+            window.pageTitle = 'Registrar Reportes';
             fetch('componentes/header.html')
             .then(response => response.text())
             .then(html => {
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="form-section">
-                        <input type="text" class="username-input" placeholder="Nombre Usuario">
+                        <input type="text" class="username-input" placeholder="Tipo de Reporte">
                         <div class="buttons-group">
                             <button class="btn btn-primary">Añadir</button>
                             <button class="btn btn-primary">Eliminar</button>
@@ -43,41 +43,27 @@
                 </aside>
 
                 <section class="right-panel">
-                    <div class="users-table-container">
-                        <h3>Lista de Usuarios</h3>
-                        <table class="users-table">
+                    <div class="reports-table-container">
+                        <h3>Lista de Reportes</h3>
+                        <table class="reports-table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombre de Usuario</th>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Descripción</th>
                                     <th>Estado</th>
+                                    <th>Usuario</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>usuario_ejemplo1</td>
-                                    <td><span class="status active">Activo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>usuario_ejemplo2</td>
-                                    <td><span class="status active">Activo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>usuario_ejemplo3</td>
-                                    <td><span class="status inactive">Inactivo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>usuario_ejemplo4</td>
-                                    <td><span class="status active">Activo</span></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>usuario_ejemplo5</td>
-                                    <td><span class="status active">Activo</span></td>
+                                    <td>22/06/2023</td>
+                                    <td>Tipo 1</td>
+                                    <td>Descripción del reporte 1</td>
+                                    <td>Estado 1</td>
+                                    <td>Usuario 1</td>
+
                                 </tr>
                             </tbody>
                         </table>

@@ -1,6 +1,4 @@
 
-/* Header Styles */
-
 
 /* Main Content */
 .main-content {
@@ -48,6 +46,8 @@
     background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     min-width: 150px;
+    width: 100%;
+    max-width: 200px;
 }
 
 .profile-avatar {
@@ -71,7 +71,7 @@
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(255,255,255,0.7);
+    border: 2px solid rgba(255, 255, 255, 0.7);
 }
 
 .profile-label {
@@ -147,8 +147,35 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Users Table Container */
-.users-table-container {
+/* Input Section */
+.input-section {
+    display: flex;
+    gap: 15px;
+}
+
+.report-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.95);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.report-input::placeholder {
+    color: #999;
+}
+
+.report-input:focus {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Reports Table Container */
+.reports-table-container {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 15px;
     padding: 25px;
@@ -159,14 +186,7 @@
     overflow: auto;
 }
 
-.users-table-container h3 {
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-}
-
-.users-table {
+.reports-table {
     width: 100%;
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.1);
@@ -174,11 +194,11 @@
     overflow: hidden;
 }
 
-.users-table thead {
+.reports-table thead {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.users-table th {
+.reports-table th {
     padding: 15px;
     text-align: left;
     color: white;
@@ -189,41 +209,33 @@
     letter-spacing: 0.5px;
 }
 
-.users-table td {
+.reports-table td {
     padding: 15px;
     color: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 14px;
 }
 
-.users-table tbody tr {
+.reports-table tbody tr {
     transition: background-color 0.3s ease;
 }
 
-.users-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.1);
+.reports-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
-.users-table tbody tr:last-child td {
+.reports-table tbody tr:last-child td {
     border-bottom: none;
 }
 
-.status {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+/* Empty State */
+.reports-table tbody:empty::after {
+    content: "No hay reportes registrados";
+    display: table-cell;
+    padding: 40px 15px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
 }
 
-.status.active {
-    background: rgba(76, 175, 80, 0.3);
-    color: #81c784;
-}
-
-.status.inactive {
-    background: rgba(244, 67, 54, 0.3);
-    color: #ef5350;
-}
 
