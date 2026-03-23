@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registros de Reportes</title>
-    <link rel="stylesheet" href="css/reportes.css">
+    <title>Registros de Ventas</title>
+    <link rel="stylesheet" href="css/ventas.css">
 </head>
 <body>
     <div class="container">
-   
         <div id="header"></div>
-
         <script>
-            window.pageTitle = 'Registrar Reportes';
+            window.pageTitle = 'Registros de Ventas';
             fetch('componentes/header.html')
             .then(response => response.text())
             .then(html => {
@@ -20,19 +18,17 @@
                 document.getElementById('page-title').innerText = window.pageTitle;
             });
         </script>
-
         <main class="main-content">
             <div class="content-grid">
                 <aside class="left-panel">
                     <div class="profile-card">
                         <div class="profile-avatar">
-                            <img src="img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
+                            <img src="img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
                         </div>
                         <p class="profile-label">Usuario ####</p>
                     </div>
-
                     <div class="form-section">
-                        <input type="text" class="username-input" placeholder="Tipo de Reporte">
+                        <input type="text" class="username-input" placeholder="Entrada Registros">
                         <div class="buttons-group">
                             <button class="btn btn-primary">Añadir</button>
                             <button class="btn btn-primary">Eliminar</button>
@@ -41,10 +37,9 @@
                         </div>
                     </div>
                 </aside>
-
                 <section class="right-panel">
                     <div class="reports-table-container">
-                        <h3>Lista de Reportes</h3>
+                        <h3>Lista de Ventas</h3>
                         <table class="reports-table">
                             <thead>
                                 <tr>
@@ -53,17 +48,15 @@
                                     <th>Descripción</th>
                                     <th>Estado</th>
                                     <th>Usuario</th>
-
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>22/06/2023</td>
-                                    <td>Tipo 1</td>
-                                    <td>Descripción del reporte 1</td>
-                                    <td>Estado 1</td>
-                                    <td>Usuario 1</td>
-
+                                    <td>Venta Ejemplo</td>
+                                    <td>Registro inicial</td>
+                                    <td>Activo</td>
+                                    <td>Admin</td>
                                 </tr>
                             </tbody>
                         </table>
