@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Usuario</title>
+    <link rel="stylesheet" href="../css/formularios.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <script>
+            window.pageTitle = 'Modificar Usuario';
+            fetch('../componentes/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle;
+            });
+        </script>
+
+        <main class="main-content form-page">
+            <h2>Modificar Usuario</h2>
+            <form class="module-form">
+                <label>ID Usuario<input type="text" name="id_usuario" value="12" readonly></label>
+                <label>Nombre<input type="text" name="nombre" value="Juan Pérez"></label>
+                <label>Nombre de Usuario<input type="text" name="nombre_usuario" value="juan.perez"></label>
+                <label>Contraseña<input type="password" name="contrasena" value="******"></label>
+                <label>Fecha de Registro<input type="date" name="fecha_registro" value="2025-10-12"></label>
+                <label>Estado<select name="estado">
+                    <option value="activo" selected>Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select></label>
+                <label>ID Rol<input type="text" name="id_rol" value="2"></label>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

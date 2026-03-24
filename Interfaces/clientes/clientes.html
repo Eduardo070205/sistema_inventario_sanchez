@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Clientes</title>
+    <link rel="stylesheet" href="../css/clientes.css">
+</head>
+<body>
+    <div class="container">
+   
+        <div id="header"></div>
+        <script>
+            window.pageTitle = 'Clientes';
+            fetch('../componentes/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle;
+            });
+        </script>
+
+        <main class="main-content">
+            <div class="content-grid">
+                <aside class="left-panel">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="../img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
+                        </div>
+                        <p class="profile-label">Usuario ####</p>
+                    </div>
+
+                    <div class="form-section">
+                        <input type="text" class="search-input" placeholder="Buscar por Nombre">
+                        <input type="text" class="search-input" placeholder="Buscar por Teléfono">
+                        <input type="text" class="search-input" placeholder="Buscar por Email">
+                        <div class="buttons-group">
+                            <button class="btn btn-primary">Añadir</button>
+                            <button class="btn btn-primary">Eliminar</button>
+                            <button class="btn btn-primary">Consultar</button>
+                            <button class="btn btn-primary">Cambiar</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="right-panel">
+                    <div class="clients-table-container">
+                        <h3>Registros de Clientes</h3>
+                        <table class="clients-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Dirección</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Juan Pérez</td>
+                                    <td>+52 55 1234 5678</td>
+                                    <td>juan.perez@email.com</td>
+                                    <td>Calle Ficticia 123, Ciudad</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>María García</td>
+                                    <td>+52 55 9876 5432</td>
+                                    <td>maria.garcia@email.com</td>
+                                    <td>Avenida Imaginaria 456, Ciudad</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Carlos López</td>
+                                    <td>+52 55 5555 6666</td>
+                                    <td>carlos.lopez@email.com</td>
+                                    <td>Plaza Inventada 789, Ciudad</td>
+                                    <td><span class="status inactive">Inactivo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Ana Rodríguez</td>
+                                    <td>+52 55 7777 8888</td>
+                                    <td>ana.rodriguez@email.com</td>
+                                    <td>Boulevard Falso 101, Ciudad</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Pedro Martínez</td>
+                                    <td>+52 55 9999 0000</td>
+                                    <td>pedro.martinez@email.com</td>
+                                    <td>Calle Real 202, Ciudad</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

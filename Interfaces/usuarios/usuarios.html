@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registros de Usuarios</title>
-    <link rel="stylesheet" href="css/usuarios.css">
+    <link rel="stylesheet" href="../css/usuarios.css">
 </head>
 <body>
     <div class="container">
@@ -13,7 +13,7 @@
 
         <script>
             window.pageTitle = 'Registrar Usuarios';
-            fetch('componentes/header.html')
+            fetch('../componentes/header.html')
             .then(response => response.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
@@ -26,7 +26,7 @@
                 <aside class="left-panel">
                     <div class="profile-card">
                         <div class="profile-avatar">
-                            <img src="img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
+                            <img src="../img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
                         </div>
                         <p class="profile-label">Usuario ####</p>
                     </div>

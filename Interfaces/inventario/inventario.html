@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
-    <link rel="stylesheet" href="css/inventario.css">
+    <link rel="stylesheet" href="../css/inventario.css">
 </head>
 <body>
     <div class="container">
         <div id="header"></div>
         <script>
             window.pageTitle = 'Inventario';
-            fetch('componentes/header.html')
+            fetch('../componentes/header.html')
             .then(response => response.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
@@ -23,7 +23,7 @@
                 <aside class="left-panel">
                     <div class="profile-card">
                         <div class="profile-avatar">
-                            <img src="img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
+                            <img src="../img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
                         </div>
                         <p class="profile-label">Usuario ####</p>
                     </div>

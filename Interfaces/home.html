@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 
@@ -12,7 +13,7 @@
         <div id="header"></div>
 
         <script>
-            window.pageTitle = 'Inicio';
+            window.pageTitle = 'Home Page';
             fetch('componentes/header.html')
             .then(response => response.text())
             .then(html => {
@@ -21,8 +22,27 @@
             });
         </script>
 
-    </div>
+        <main class="main-content home-content">
+            <div class="welcome-card">
+                <img src="img/user2.png" alt="User Avatar" class="avatar"></img>
+                <div class="welcome-text">
+                    <h1>Home Page</h1>
+                    <p>Usuario ####</p>
+                </div>
+            </div>
+            <div class="grid-actions">
+                <a class="action-card">Ventas</a>
+                <a class="action-card">Usuario</a>
+                <a class="action-card">Reportes</a>
+                <a class="action-card">Entregas</a>
+                <a class="action-card">Clientes</a>
+                <a class="action-card">Inventario</a>
+                <a class="action-card">Productos</a>
+                <a class="action-card">Sucursales</a>
+            </div>
+        </main>
 
+    </div>
 
 
 

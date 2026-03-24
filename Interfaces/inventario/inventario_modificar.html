@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Inventario</title>
+    <link rel="stylesheet" href="../css/formularios.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <script>
+            window.pageTitle = 'Modificar Inventario';
+            fetch('../componentes/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle;
+            });
+        </script>
+
+        <main class="main-content form-page">
+            <h2>Modificar Inventario</h2>
+            <form class="module-form">
+                <label>ID Inventario<input type="text" name="id_inventario" value="123" readonly></label>
+                <label>ID Sucursal<input type="text" name="id_sucursal" value="1"></label>
+                <label>ID Producto<input type="text" name="id_producto" value="5"></label>
+                <label>Cantidad Disponible<input type="number" name="cantidad_disponible" value="100"></label>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
