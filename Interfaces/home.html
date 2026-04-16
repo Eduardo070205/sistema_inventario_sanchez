@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 
     <div class="container">
 
-        <div id="header"></div>
-
-        <script>
-            window.pageTitle = 'Home Page';
-            fetch('componentes/header.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('header').innerHTML = html;
-                document.getElementById('page-title').innerText = window.pageTitle || "Materiales de Construcción Sánchez";
-            });
-        </script>
+        <header class="header">
+            <div class="header-content">
+                <h1 id="page-title">Home</h1>
+                <div class="header-icons">
+                    <a class="icon-btn" title="Inicio">
+                        <img src="img/home.png" alt="Botón Inicio" class="icon-btn">
+                    </a>
+                    <a class="icon-btn" title="Salir" href="iniciar_sesion.html">
+                        <img src="img/exit.png" alt="Botón Salir" class="icon-btn">
+                    </a>
+                </div>
+            </div>
+        </header>
 
         <main class="main-content home-content">
             <div class="welcome-card">
@@ -31,14 +34,14 @@
                 </div>
             </div>
             <div class="grid-actions">
-                <a class="action-card">Ventas</a>
-                <a class="action-card">Usuario</a>
-                <a class="action-card">Reportes</a>
-                <a class="action-card">Entregas</a>
-                <a class="action-card">Clientes</a>
-                <a class="action-card">Inventario</a>
-                <a class="action-card">Productos</a>
-                <a class="action-card">Sucursales</a>
+                <a href="ventas/ventas.html" class="action-card">Ventas</a>
+                <a href="usuarios/usuarios.html" class="action-card">Usuario</a>
+                <a href="reportes.html" class="action-card">Reportes</a>
+                <a href="entregas/entregas.html" class="action-card">Entregas</a>
+                <a href="clientes/clientes.html" class="action-card">Clientes</a>
+                <a href="inventario/inventario.html" class="action-card">Inventario</a>
+                <a href="productos/productos.html" class="action-card">Productos</a>
+  
             </div>
         </main>
 

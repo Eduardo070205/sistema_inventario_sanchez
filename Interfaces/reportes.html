@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registros de Reportes</title>
     <link rel="stylesheet" href="css/reportes.css">
+    <link rel="stylesheet" href="css/header.css">
+
 </head>
 <body>
     <div class="container">
    
-        <div id="header"></div>
-
-        <script>
-            window.pageTitle = 'Registrar Reportes';
-            fetch('componentes/header.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('header').innerHTML = html;
-                document.getElementById('page-title').innerText = window.pageTitle;
-            });
-        </script>
+        <header class="header">
+            <div class="header-content">
+                <h1 id="page-title">Reportes</h1>
+                <div class="header-icons">
+                    <a class="icon-btn" title="Inicio" href="home.html">
+                        <img src="img/home.png" alt="Botón Inicio" class="icon-btn">
+                    </a>
+                    <a class="icon-btn" title="Salir">
+                        <img src="img/exit.png" alt="Botón Salir" class="icon-btn">
+                    </a>
+                </div>
+            </div>
+        </header>
 
         <main class="main-content">
             <div class="content-grid">
