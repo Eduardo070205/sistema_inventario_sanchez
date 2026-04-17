@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Productos</title>
+    <link rel="stylesheet" href="../css/productos.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <script>
+            window.pageTitle = 'Productos';
+            fetch('../componentes/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                document.getElementById('page-title').innerText = window.pageTitle;
+            });
+        </script>
+        <main class="main-content">
+            <div class="content-grid">
+                <aside class="left-panel">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="../img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
+                        </div>
+                        <p class="profile-label">Usuario ####</p>
+                    </div>
+                    <div class="form-section">
+                        <input type="text" class="search-input" placeholder="Buscar por Nombre">
+                        <input type="text" class="search-input" placeholder="Buscar por Código">
+                        <input type="text" class="search-input" placeholder="Buscar por Categoría">
+                        <div class="buttons-group">
+                            <a href="producto_agregar.html"><button class="btn btn-primary">Añadir</button></a>
+                            <button class="btn btn-primary">Eliminar</button>
+                            <button class="btn btn-primary">Consultar</button>
+                            <a href="producto_modificar.html"><button class="btn btn-primary">Cambiar</button></a>
+                        </div>
+                    </div>
+                </aside>
+                <section class="right-panel">
+                    <div class="products-table-container">
+                        <h3>Registros de Productos</h3>
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>PROD-001</td>
+                                    <td>Producto Ejemplo A</td>
+                                    <td>Electrónica</td>
+                                    <td>$299.99</td>
+                                    <td>50</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>PROD-002</td>
+                                    <td>Producto Ejemplo B</td>
+                                    <td>Hogar</td>
+                                    <td>$149.50</td>
+                                    <td>25</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>PROD-003</td>
+                                    <td>Producto Ejemplo C</td>
+                                    <td>Deportes</td>
+                                    <td>$89.00</td>
+                                    <td>0</td>
+                                    <td><span class="status inactive">Agotado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>PROD-004</td>
+                                    <td>Producto Ejemplo D</td>
+                                    <td>Electrónica</td>
+                                    <td>$599.00</td>
+                                    <td>15</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>PROD-005</td>
+                                    <td>Producto Ejemplo E</td>
+                                    <td>Oficina</td>
+                                    <td>$45.00</td>
+                                    <td>100</td>
+                                    <td><span class="status active">Activo</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
