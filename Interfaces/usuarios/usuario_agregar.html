@@ -21,10 +21,10 @@
 
         <main class="main-content form-page">
             <h2>Agregar Usuario</h2>
-            <form class="module-form">
+            <form id="agregarUsuarios" class="module-form" action="registrar.php" method="POST">
                 <label>Nombre<input type="text" name="nombre" placeholder="Nombre completo"></label>
                 <label>Nombre de Usuario<input type="text" name="nombre_usuario" placeholder="Nombre de usuario"></label>
-                <label>Contraseña<input type="password" name="contrasena" placeholder="Contraseña"></label>
+                <label>Contraseña<input type="password" name="contraseña" placeholder="Contraseña"></label>
                 <label>Fecha de Registro<input type="date" name="fecha_registro"></label>
                 <label>Estado<select name="estado">
                     <option value="">Seleccione</option>
@@ -37,6 +37,7 @@
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
                 </div>
             </form>
+
         </main>
     </div>
 </body>

@@ -21,11 +21,12 @@
 
         <main class="main-content form-page">
             <h2>Agregar Cliente</h2>
-            <form class="module-form">
-                <label>Nombre<input type="text" name="nombre" placeholder="Nombre del cliente"></label>
+            <form class="module-form" action="registrar_cliente.php" method="POST">
+                <label>Nombre<input type="text" name="nombre" placeholder="Nombre del cliente" required></label>
                 <label>Teléfono<input type="text" name="telefono" placeholder="Teléfono"></label>
                 <label>Dirección<input type="text" name="direccion" placeholder="Dirección"></label>
                 <label>Correo<input type="email" name="correo" placeholder="Correo"></label>
+                
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
