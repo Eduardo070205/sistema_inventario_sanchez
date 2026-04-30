@@ -21,11 +21,28 @@
 
         <main class="main-content form-page">
             <h2>Agregar Producto</h2>
-            <form class="module-form">
-                <label>Nombre<input type="text" name="nombre" placeholder="Nombre del producto"></label>
-                <label>Código<input type="text" name="codigo" placeholder="Código del producto"></label>
-                <label>Descripción<textarea name="descripcion" placeholder="Descripción"></textarea></label>
-                <label>Precio<input type="number" step="0.01" name="precio" placeholder="Precio"></label>
+            <form class="module-form" action="registrar_producto.php" method="POST">
+                
+                <label>Nombre
+                    <input type="text" name="nombre" placeholder="Nombre del producto" required>
+                </label>
+                
+                <label>Código
+                    <input type="text" name="codigo" placeholder="Código del producto" required>
+                </label>
+                
+                <label>Descripción
+                    <textarea name="descripcion" placeholder="Descripción"></textarea>
+                </label>
+                
+                <label>Precio
+                    <input type="number" step="0.01" name="precio" placeholder="Precio" required>
+                </label>
+                
+                <label>ID Inventario
+                    <input type="text" name="Inventarios_id" placeholder="ID del inventario" required>
+                </label>
+
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
