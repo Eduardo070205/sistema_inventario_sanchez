@@ -36,16 +36,16 @@ require '../../conexion/verificar_sesion.php';
                         <div class="profile-avatar">
                             <img src="../img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
                         </div>
-                        <p class="profile-label">Venta ####</p>
+                        <p class="profile-label">Usuario: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                     </div>
 
                     <div class="form-section">
                         <input type="text" class="username-input" id="inputVenta" placeholder="Venta seleccionada" readonly>
                         <div class="buttons-group">
-                            <a href="venta_agregar.html"><button class="btn btn-primary">Añadir</button></a>
+                            <a href="venta_agregar.php" class="btn btn-primary">Añadir</a>
                             <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
                             <button class="btn btn-primary" disabled>Consultar</button>
-                            <a id="link-modificar" href="venta_modificar.html"><button class="btn btn-primary">Cambiar</button></a>
+                            <a id="link-modificar" href="venta_modificar.php" class="btn btn-primary">Cambiar</a>
                         </div>
                     </div>
                 </aside>

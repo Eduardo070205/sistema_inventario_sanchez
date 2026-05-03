@@ -1,5 +1,14 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+
+if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') { // Ajusta el '1' según el rol de tu base de datos
+    echo "<script>
+            alert('Acceso denegado: Módulo exclusivo para administradores.');
+            window.location.href = '../home.php';
+          </script>";
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,16 +41,16 @@ require '../../conexion/verificar_sesion.php';
                         <div class="profile-avatar">
                             <img src="../img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
                         </div>
-                        <p class="profile-label">Usuario ####</p>
+                        <p class="profile-label">Usuario: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                     </div>
 
                     <div class="form-section">
                         <input type="text" class="username-input" placeholder="Nombre Usuario">
                         <div class="buttons-group">
-                            <a href="usuario_agregar.html"><button class="btn btn-primary">Añadir</button></a>
+                            <a href="usuario_agregar.php"><button class="btn btn-primary">Añadir</button></a>
                             <button id="btn-eliminar"class="btn btn-primary">Eliminar</button>
                             <button class="btn btn-primary">Consultar</button>
-                            <a href="usuario_modificar.html"><button class="btn btn-primary">Cambiar</button></a>
+                            <a  href="usuario_modificar.php"><button id="btn-modificar" class="btn btn-primary">Cambiar</button></a>
                         </div>
                     </div>
                 </aside>
@@ -90,7 +99,7 @@ require '../../conexion/verificar_sesion.php';
 
         // Seleccionamos los elementos por ID o clases específicas
         const btnEliminar = document.getElementById('btn-eliminar');
-        const linkCambiar = document.querySelector('a[href="usuario_modificar.html"]');
+        const linkCambiar = document.querySelector('a[href="usuario_modificar.php"]');
         const profileLabel = document.querySelector('.profile-label');
         const inputNombre = document.querySelector('.username-input');
 

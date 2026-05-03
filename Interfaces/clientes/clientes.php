@@ -38,7 +38,7 @@ require '../../conexion/verificar_sesion.php';
                         <div class="profile-avatar">
                             <img src="../img/user2.png" alt="Logo de usuario" class="profile-avatar-img">
                         </div>
-                        <p class="profile-label">Cliente ####</p>
+                        <p class="profile-label">Usuario: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                     </div>
 
                     <div class="form-section">
@@ -47,10 +47,10 @@ require '../../conexion/verificar_sesion.php';
                         <input type="text" class="search-input" placeholder="Nombre seleccionado" id="inputNombre" readonly>
                         
                         <div class="buttons-group">
-                            <a href="cliente_agregar.html"><button class="btn btn-primary">Añadir</button></a>
+                            <a href="cliente_agregar.php"><button class="btn btn-primary">Añadir</button></a>
                             <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
                             <button class="btn btn-primary">Consultar</button>
-                            <a id="link-modificar" href="cliente_modificar.html"><button class="btn btn-primary">Cambiar</button></a>
+                            <a id="link-modificar" href="cliente_modificar.php"><button class="btn btn-primary">Cambiar</button></a>
                         </div>
                     </div>
                 </aside>

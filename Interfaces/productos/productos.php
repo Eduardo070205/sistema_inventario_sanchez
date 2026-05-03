@@ -1,5 +1,14 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+
+if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
+    echo "<script>
+            alert('Acceso denegado: Módulo exclusivo para administradores.');
+            window.location.href = '../home.php';
+          </script>";
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,7 +45,7 @@ require '../../conexion/verificar_sesion.php';
                         <div class="profile-avatar">
                             <img src="../img/user2.png" alt="Avatar del usuario" class="profile-avatar-img">
                         </div>
-                        <p class="profile-label">Prod ID: ####</p>
+                        <p class="profile-label">Usuario: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                     </div>
                     <div class="form-section">
                         <input type="text" class="search-input" id="inputNombre" placeholder="Producto seleccionado" readonly>
@@ -44,7 +53,7 @@ require '../../conexion/verificar_sesion.php';
                             <a href="producto_agregar.php"><button class="btn btn-primary">Añadir</button></a>
                             <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
                             <button class="btn btn-primary" disabled>Consultar</button>
-                            <a id="link-modificar" href="#"><button class="btn btn-primary">Cambiar</button></a>
+                            <a id="link-modificar" href="producto_modificar.php"><button class="btn btn-primary">Cambiar</button></a>
                         </div>
                     </div>
                 </aside>

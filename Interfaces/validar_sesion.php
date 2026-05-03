@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Guardamos el nombre de usuario y el ID en la sesión
                 $_SESSION['usuario'] = $user['nombre_usuario']; // <- Corregido aquí
                 $_SESSION['id_usuario'] = $user['id'];
+                $_SESSION['id_rol'] = $user['id_rol'];
                 
                 header("Location: home.php");
                 exit();
