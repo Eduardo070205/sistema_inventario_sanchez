@@ -1,3 +1,7 @@
+<?php
+require '../../conexion/verificar_sesion.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,10 +25,20 @@
 
         <main class="main-content form-page">
             <h2>Agregar Inventario</h2>
-            <form class="module-form">
-                <label>ID Sucursal<input type="text" name="id_sucursal" placeholder="ID Sucursal"></label>
-                <label>ID Producto<input type="text" name="id_producto" placeholder="ID Producto"></label>
-                <label>Cantidad Disponible<input type="number" name="cantidad_disponible" placeholder="Cantidad Disponible"></label>
+            <form class="module-form" action="registrar_inventario.php" method="POST">
+                
+                <label>ID Sucursal
+                    <input type="text" name="id_sucursal" placeholder="ID Sucursal" required>
+                </label>
+                
+                <label>ID Producto
+                    <input type="text" name="id_producto" placeholder="ID Producto" required>
+                </label>
+                
+                <label>Cantidad Disponible
+                    <input type="number" name="cantidad_disponible" placeholder="Cantidad Disponible" required>
+                </label>
+                
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>

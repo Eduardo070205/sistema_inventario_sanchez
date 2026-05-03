@@ -1,3 +1,8 @@
+<?php
+// Llama siempre a la sesión desde el directorio raíz del servidor
+require $_SERVER['DOCUMENT_ROOT'] . '/Programa/conexion/verificar_sesion.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +23,7 @@
                     <a class="icon-btn" title="Inicio">
                         <img src="img/home.png" alt="Botón Inicio" class="icon-btn">
                     </a>
-                    <a class="icon-btn" title="Salir" href="iniciar_sesion.html">
+                    <a class="icon-btn" title="Salir" href="iniciar_sesion.php">
                         <img src="img/exit.png" alt="Botón Salir" class="icon-btn">
                     </a>
                 </div>
@@ -37,16 +42,15 @@
                 <a href="ventas/ventas.php" class="action-card">Ventas</a>
                 <a href="usuarios/usuarios.php" class="action-card">Usuario</a>
                 <a href="reportes.html" class="action-card">Reportes</a>
-                <a href="entregas/entregas.html" class="action-card">Entregas</a>
+                <a href="entregas/entregas.php" class="action-card">Entregas</a>
                 <a href="clientes/clientes.php" class="action-card">Clientes</a>
-                <a href="inventario/inventario.html" class="action-card">Inventario</a>
+                <a href="inventario/inventario.php" class="action-card">Inventario</a>
                 <a href="productos/productos.php" class="action-card">Productos</a>
   
             </div>
         </main>
 
     </div>
-
 
 
 </body>

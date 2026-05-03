@@ -14,24 +14,19 @@
 
         <main class="content" aria-label="Formulario de inicio de sesión">
 
-            <img src="img/user.png" alt="Logo de Materiales de Construcción Sánchez" class="avatar" >
+            <img src="img/user.png" alt="Logo de Materiales de Construcción Sánchez" class="avatar">
 
-            <form class="form" action="#" method="post">
+            <form class="form" action="validar_sesion.php" method="POST">
                 <div class="input-group">
-                    <input type="text" name="usuario" placeholder="Usuario" >
+                    <input type="text" name="usuario" placeholder="Usuario" required>
                 </div>
 
                 <div class="input-group">
-                    <input type="password" name="contraseña" placeholder="Contraseña" >
+                    <input type="password" name="contraseña" placeholder="Contraseña" required>
                 </div>
 
-                <a href="home.html">
-
-                    <button type="submit" class="btn">Iniciar Sesión</button>
-
-                </a>
-   
-                <button type="submit" class="btn">Restablecer</button>
+                <button type="submit" class="btn">Iniciar Sesión</button>
+                <button type="reset" class="btn">Restablecer</button>
 
             </form>
 

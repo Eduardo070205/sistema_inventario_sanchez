@@ -1,4 +1,8 @@
 <?php
+require '../../conexion/verificar_sesion.php';
+?>
+
+<?php
 // 1. Conexión
 $pdo = require '../../conexion/conexion.php';
 
