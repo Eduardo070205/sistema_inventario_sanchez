@@ -1,5 +1,11 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+$pdo = require '../../conexion/conexion.php';
+
+$busqueda = '';
+if (isset($_GET['buscar_nombre']) && trim($_GET['buscar_nombre']) !== '') {
+    $busqueda = trim($_GET['buscar_nombre']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +19,16 @@ require '../../conexion/verificar_sesion.php';
         /* Estilos para la selección */
         .fila-cliente { cursor: pointer; transition: 0.2s; }
         .fila-cliente:hover { background-color: rgba(47, 87, 141, 0.1); }
-        .seleccionada { background-color: "#1976d2" !important; color: white !important; }
+        .seleccionada { background-color: #1976d2 !important; color: white !important; }
         .seleccionada .status { border: 1px solid white; }
         button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        
+        .search-box {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -42,15 +55,19 @@ require '../../conexion/verificar_sesion.php';
                     </div>
 
                     <div class="form-section">
-                        <!-- Inputs de búsqueda (puedes programar el filtro después) -->
-                        <input type="text" class="search-input" id="searchNombre" placeholder="Buscar por Nombre">
-                        <input type="text" class="search-input" placeholder="Nombre seleccionado" id="inputNombre" readonly>
+                        <form method="GET" action="">
+                            <input type="text" name="buscar_nombre" class="search-box username-input" id="searchNombre" placeholder="Buscar por Nombre" value="<?php echo htmlspecialchars($busqueda); ?>">
+                            <div class="buttons-group">
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Consultar</button>
+                            </div>
+                        </form>
+
+                        <input type="text" class="search-input username-input" placeholder="Nombre seleccionado" id="inputNombre" readonly disabled>
                         
-                        <div class="buttons-group">
-                            <a href="cliente_agregar.php"><button class="btn btn-primary">Añadir</button></a>
-                            <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
-                            <button class="btn btn-primary">Consultar</button>
-                            <a id="link-modificar" href="cliente_modificar.php"><button class="btn btn-primary">Cambiar</button></a>
+                        <div class="buttons-group" style="margin-top: 10px;">
+                            <a href="cliente_agregar.php" style="text-decoration: none; width: 100%;"><button class="btn btn-primary" style="width: 100%; margin-bottom: 5px;">Añadir</button></a>
+                            <button id="btn-eliminar" class="btn btn-primary" disabled style="width: 100%; margin-bottom: 5px;">Eliminar</button>
+                            <a id="link-modificar" href="cliente_modificar.php" style="text-decoration: none; width: 100%;"><button id="btn-modificar" class="btn btn-primary" disabled style="width: 100%;">Cambiar</button></a>
                         </div>
                     </div>
                 </aside>
@@ -70,17 +87,30 @@ require '../../conexion/verificar_sesion.php';
                             </thead>
                             <tbody>
                                 <?php
-                                $pdo = require '../../conexion/conexion.php';
                                 try {
-                                    $query = $pdo->query("SELECT * FROM clientes");
-                                    while ($row = $query->fetch()) {
-                                        echo "<tr class='fila-cliente' data-id='{$row['id']}' data-nombre='".htmlspecialchars($row['nombre'])."'>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['telefono']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['correo']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['direccion']) . "</td>";
-                                        echo "</tr>";
+                                    if (!empty($busqueda)) {
+                                        $stmt = $pdo->prepare("SELECT * FROM clientes WHERE nombre LIKE :nombre");
+                                        $searchTerm = '%' . $busqueda . '%';
+                                        $stmt->bindParam(':nombre', $searchTerm, PDO::PARAM_STR);
+                                        $stmt->execute();
+                                        $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    } else {
+                                        $query = $pdo->query("SELECT * FROM clientes");
+                                        $clientes = $query->fetchAll(PDO::FETCH_ASSOC);
+                                    }
+
+                                    if (count($clientes) > 0) {
+                                        foreach ($clientes as $row) {
+                                            echo "<tr class='fila-cliente' data-id='{$row['id']}' data-nombre='" . htmlspecialchars($row['nombre']) . "'>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['telefono']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['correo']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['direccion']) . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5'>No se encontraron registros.</td></tr>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "<tr><td colspan='5'>Error: " . $e->getMessage() . "</td></tr>";
@@ -99,12 +129,16 @@ require '../../conexion/verificar_sesion.php';
         let nombreSeleccionado = null;
 
         const btnEliminar = document.getElementById('btn-eliminar');
+        const btnModificar = document.getElementById('btn-modificar');
         const linkModificar = document.getElementById('link-modificar');
         const profileLabel = document.querySelector('.profile-label');
         const inputNombre = document.getElementById('inputNombre');
 
         // Estado inicial
         btnEliminar.disabled = true;
+        if (btnModificar) {
+            btnModificar.disabled = true;
+        }
         linkModificar.style.pointerEvents = 'none';
         linkModificar.style.opacity = '0.5';
 
@@ -114,7 +148,7 @@ require '../../conexion/verificar_sesion.php';
                 document.querySelectorAll('.fila-cliente').forEach(f => f.classList.remove('seleccionada'));
                 this.classList.add('seleccionada');
 
-                // Captura de datos
+                // Captura de datos usando los atributos data-* de la fila
                 idSeleccionado = this.getAttribute('data-id');
                 nombreSeleccionado = this.getAttribute('data-nombre');
 
@@ -124,6 +158,11 @@ require '../../conexion/verificar_sesion.php';
 
                 // Activar botones
                 btnEliminar.disabled = false;
+                if (btnModificar) {
+                    btnModificar.disabled = false;
+                }
+                
+                // Habilitar el enlace y asignar la URL correspondiente
                 linkModificar.style.pointerEvents = 'auto';
                 linkModificar.style.opacity = '1';
                 linkModificar.href = "cliente_modificar.php?id=" + idSeleccionado;
@@ -132,7 +171,7 @@ require '../../conexion/verificar_sesion.php';
 
         // Lógica de eliminación
         btnEliminar.addEventListener('click', function() {
-            if(idSeleccionado && confirm("¿Deseas eliminar al cliente: " + nombreSeleccionado + "?")) {
+            if (idSeleccionado && confirm("¿Deseas eliminar al cliente: " + nombreSeleccionado + "?")) {
                 window.location.href = "eliminar_cliente.php?id=" + idSeleccionado;
             }
         });

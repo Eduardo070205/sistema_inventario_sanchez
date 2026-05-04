@@ -1,7 +1,12 @@
 <?php
 require '../../conexion/verificar_sesion.php';
-?>
+$pdo = require '../../conexion/conexion.php';
 
+$busqueda = '';
+if (isset($_GET['buscar_id']) && trim($_GET['buscar_id']) !== '') {
+    $busqueda = trim($_GET['buscar_id']);
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,6 +20,13 @@ require '../../conexion/verificar_sesion.php';
         .seleccionada { background-color: #2f578d !important; color: white !important; }
         .seleccionada .status { border: 1px solid white; color: #fff !important; }
         button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -41,13 +53,21 @@ require '../../conexion/verificar_sesion.php';
                     </div>
 
                     <div class="form-section">
-                        <input type="text" class="username-input" id="inputInventario" placeholder="Sucursal de selección" readonly disabled>
+                        <form method="GET" action="">
+                            <input type="text" name="buscar_id" class="search-box username-input" id="inputBuscarInventario" placeholder="Ingresa ID para consultar..." value="<?php echo htmlspecialchars($busqueda); ?>">
+                            <div class="buttons-group">
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Consultar</button>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 5px;">
+                            <input type="text" class="username-input" id="inputInventario" placeholder="Sucursal de selección" readonly disabled>
+                        </div>
                         
-                        <div class="buttons-group">
-                            <a href="inventario_agregar.php"><button class="btn btn-primary">Añadir</button></a>
+                        <div class="buttons-group" style="margin-top: 10px;">
+                            <a href="inventario_agregar.php" class="btn btn-primary" style="text-decoration:none;">Añadir</a>
                             <button id="btn-eliminar" class="btn btn-primary" disabled>Eliminar</button>
-                            <button class="btn btn-primary" disabled>Consultar</button>
-                            <a id="link-modificar" href="inventario_modificar.php"><button id="btn-modificar" class="btn btn-primary" disabled>Cambiar</button></a>
+                            <a id="link-modificar" href="inventario_modificar.php" style="text-decoration:none;"><button id="btn-modificar" class="btn btn-primary" disabled>Cambiar</button></a>
                         </div>
                     </div>
                 </aside>
@@ -66,16 +86,28 @@ require '../../conexion/verificar_sesion.php';
                             </thead>
                             <tbody>
                                 <?php
-                                $pdo = require '../../conexion/conexion.php';
                                 try {
-                                    $query = $pdo->query("SELECT * FROM inventarios");
-                                    while ($row = $query->fetch()) {
-                                        echo "<tr class='fila-inventario' data-id='{$row['id']}' data-sucursal='{$row['id_sucursal']}'>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['id_sucursal']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['id_producto']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['cantidad_disponible']) . "</td>";
-                                        echo "</tr>";
+                                    if (!empty($busqueda)) {
+                                        $stmt = $pdo->prepare("SELECT * FROM inventarios WHERE id = :id");
+                                        $stmt->bindParam(':id', $busqueda, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $inventarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    } else {
+                                        $query = $pdo->query("SELECT * FROM inventarios");
+                                        $inventarios = $query->fetchAll(PDO::FETCH_ASSOC);
+                                    }
+
+                                    if (count($inventarios) > 0) {
+                                        foreach ($inventarios as $row) {
+                                            echo "<tr class='fila-inventario' data-id='{$row['id']}' data-sucursal='{$row['id_sucursal']}'>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['id_sucursal']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['id_producto']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['cantidad_disponible']) . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='4'>No se encontraron registros.</td></tr>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "<tr><td colspan='4'>Error: " . $e->getMessage() . "</td></tr>";

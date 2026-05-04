@@ -1,5 +1,11 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+$pdo = require '../../conexion/conexion.php';
+
+$busqueda = '';
+if (isset($_GET['buscar_id']) && trim($_GET['buscar_id']) !== '') {
+    $busqueda = trim($_GET['buscar_id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,6 +20,13 @@ require '../../conexion/verificar_sesion.php';
         .fila-venta:hover { background-color: rgba(47, 87, 141, 0.1); }
         .seleccionada { background-color: #2f578d !important; color: white !important; }
         button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -40,11 +53,20 @@ require '../../conexion/verificar_sesion.php';
                     </div>
 
                     <div class="form-section">
-                        <input type="text" class="username-input" id="inputVenta" placeholder="Venta seleccionada" readonly>
-                        <div class="buttons-group">
+                        <form method="GET" action="">
+                            <input type="text" name="buscar_id" class="search-box username-input" id="inputBuscarVenta" placeholder="Ingresa ID para consultar..." value="<?php echo htmlspecialchars($busqueda); ?>">
+                            <div class="buttons-group">
+                                <button type="submit" class="btn btn-primary">Consultar</button>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 15px;">
+                            <input type="text" class="username-input" id="inputVenta" placeholder="Venta seleccionada" readonly>
+                        </div>
+                        
+                        <div class="buttons-group" style="margin-top: 10px;">
                             <a href="venta_agregar.php" class="btn btn-primary">Añadir</a>
                             <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
-                            <button class="btn btn-primary" disabled>Consultar</button>
                             <a id="link-modificar" href="venta_modificar.php" class="btn btn-primary">Cambiar</a>
                         </div>
                     </div>
@@ -66,19 +88,33 @@ require '../../conexion/verificar_sesion.php';
                             </thead>
                             <tbody>
                                 <?php
-                                $pdo = require '../../conexion/conexion.php';
                                 try {
-                                    $query = $pdo->query("SELECT * FROM ventas");
-                                    while ($row = $query->fetch()) {
-                                        echo "<tr class='fila-venta' data-id='{$row['id']}' data-total='{$row['total']}'>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['fecha']) . "</td>";
-                                        echo "<td>$" . number_format($row['total'], 2) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['tipo_pago']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['estado']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['id_cliente']) . "</td>";
-                                        echo "</tr>";
+                                    // Filtrar por ID de venta si se ingresó un dato, de lo contrario mostrar todos
+                                    if (!empty($busqueda)) {
+                                        $stmt = $pdo->prepare("SELECT * FROM ventas WHERE id = :id");
+                                        $stmt->bindParam(':id', $busqueda, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    } else {
+                                        $query = $pdo->query("SELECT * FROM ventas");
+                                        $ventas = $query->fetchAll(PDO::FETCH_ASSOC);
                                     }
+
+                                    if (count($ventas) > 0) {
+                                        foreach ($ventas as $row) {
+                                            echo "<tr class='fila-venta' data-id='{$row['id']}' data-total='{$row['total']}'>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['fecha']) . "</td>";
+                                            echo "<td>$" . number_format($row['total'], 2) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['tipo_pago']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['estado']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['id_cliente']) . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>No se encontraron registros.</td></tr>";
+                                    }
+
                                 } catch (PDOException $e) {
                                     echo "<tr><td colspan='6'>Error: " . $e->getMessage() . "</td></tr>";
                                 }

@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "<script>
                 alert('Inventario actualizado correctamente');
-                window.location.href = 'inventarios.php';
+                window.location.href = 'inventario.php';
               </script>";
 
     } catch (PDOException $e) {

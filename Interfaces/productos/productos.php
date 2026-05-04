@@ -1,5 +1,6 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+$pdo = require '../../conexion/conexion.php';
 
 if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
     echo "<script>
@@ -9,6 +10,10 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
     exit();
 }
 
+$busqueda = '';
+if (isset($_GET['buscar_id']) && trim($_GET['buscar_id']) !== '') {
+    $busqueda = trim($_GET['buscar_id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,6 +28,13 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
         .seleccionada { background-color: #2f578d !important; color: white !important; }
         .seleccionada .status { border: 1px solid white; }
         button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -47,13 +59,23 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
                         </div>
                         <p class="profile-label">Usuario: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                     </div>
+                    
                     <div class="form-section">
-                        <input type="text" class="search-input" id="inputNombre" placeholder="Producto seleccionado" readonly>
-                        <div class="buttons-group">
-                            <a href="producto_agregar.php"><button class="btn btn-primary">Añadir</button></a>
+                        <form method="GET" action="">
+                            <input type="text" name="buscar_id" class="search-box username-input" id="inputBuscarProducto" placeholder="Ingresa ID para consultar..." value="<?php echo htmlspecialchars($busqueda); ?>">
+                            <div class="buttons-group">
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Consultar</button>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 5px;">
+                            <input type="text" class="search-input username-input" id="inputNombre" placeholder="Producto seleccionado" readonly>
+                        </div>
+                        
+                        <div class="buttons-group" style="margin-top: 10px;">
+                            <a href="producto_agregar.php" class="btn btn-primary" style="text-decoration:none;">Añadir</a>
                             <button id="btn-eliminar" class="btn btn-primary">Eliminar</button>
-                            <button class="btn btn-primary" disabled>Consultar</button>
-                            <a id="link-modificar" href="producto_modificar.php"><button class="btn btn-primary">Cambiar</button></a>
+                            <a id="link-modificar" href="producto_modificar.php" class="btn btn-primary" style="text-decoration:none;">Cambiar</a>
                         </div>
                     </div>
                 </aside>
@@ -74,18 +96,30 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
                             </thead>
                             <tbody>
                                 <?php
-                                $pdo = require '../../conexion/conexion.php';
                                 try {
-                                    $query = $pdo->query("SELECT * FROM productos");
-                                    while ($row = $query->fetch()) {
-                                        echo "<tr class='fila-producto' data-id='{$row['id']}' data-nombre='".htmlspecialchars($row['nombre'])."'>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['codigo']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['descripcion']) . "</td>";
-                                        echo "<td>$" . number_format($row['precio'], 2) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['Inventarios_id']) . "</td>";
-                                        echo "</tr>";
+                                    if (!empty($busqueda)) {
+                                        $stmt = $pdo->prepare("SELECT * FROM productos WHERE id = :id");
+                                        $stmt->bindParam(':id', $busqueda, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    } else {
+                                        $query = $pdo->query("SELECT * FROM productos");
+                                        $productos = $query->fetchAll(PDO::FETCH_ASSOC);
+                                    }
+
+                                    if (count($productos) > 0) {
+                                        foreach ($productos as $row) {
+                                            echo "<tr class='fila-producto' data-id='{$row['id']}' data-nombre='" . htmlspecialchars($row['nombre']) . "'>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['codigo']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['descripcion']) . "</td>";
+                                            echo "<td>$" . number_format($row['precio'], 2) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['Inventarios_id']) . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>No se encontraron registros.</td></tr>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "<tr><td colspan='6'>Error: " . $e->getMessage() . "</td></tr>";
@@ -100,8 +134,8 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') {
     </div>
 
     <script>
-        let idSeleccionado = null;
-        let nombreSeleccionado = null;
+        let idSeleccionadoId = null;
+        letSeleccionadoNombre = null;
 
         const btnEliminar = document.getElementById('btn-eliminar');
         const linkModificar = document.getElementById('link-modificar');

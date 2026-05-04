@@ -3,15 +3,21 @@
 $pdo = require '../../conexion/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 2. Recibir los datos
-    $id          = $_POST['id'];
-    $fecha       = $_POST['fecha'];
-    $total       = $_POST['total'];
-    $tipo_pago   = $_POST['tipo_pago'];
-    $estado      = $_POST['estado'];
-    $id_cliente  = $_POST['id_cliente'];
-    $id_pago     = $_POST['id_pago'];
-    $Entregas_id = $_POST['Entregas_id'];
+    // 2. Recibir los datos con validación para evitar errores
+    $id          = $_POST['id'] ?? null;
+    $fecha       = $_POST['fecha'] ?? null;
+    $total       = $_POST['total'] ?? null;
+    $tipo_pago   = $_POST['tipo_pago'] ?? null;
+    $estado      = $_POST['estado'] ?? null;
+    $id_cliente  = $_POST['id_cliente'] ?? null;
+    $id_pago     = $_POST['id_pago'] ?? null;
+    $Entregas_id = $_POST['Entregas_id'] ?? null;
+
+    // Verificar que el ID principal exista
+    if (!$id) {
+        echo "<script>alert('Error: ID de venta no especificado.'); window.location.href = 'ventas.php';</script>";
+        exit();
+    }
 
     try {
         // 3. Preparar el SQL con los nuevos datos
@@ -27,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $stmt = $pdo->prepare($sql);
         
+        // Ejecutar los datos
         $stmt->execute([
             ':fecha'       => $fecha,
             ':total'       => $total,

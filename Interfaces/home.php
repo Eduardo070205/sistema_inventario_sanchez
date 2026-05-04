@@ -34,7 +34,7 @@ require '../conexion/verificar_sesion.php';
                 <img src="img/user2.png" alt="User Avatar" class="avatar">
                 <div class="welcome-text">
                     <h1>Home Page</h1>
-                    <p><?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
+                    <p>USUARIO: <?php echo htmlspecialchars($_SESSION['usuario']); ?></p>
                 </div>
             </div>
             

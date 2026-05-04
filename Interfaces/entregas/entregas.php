@@ -1,5 +1,28 @@
 <?php
 require '../../conexion/verificar_sesion.php';
+$pdo = require '../../conexion/conexion.php';
+
+// Construcción de la consulta de filtrado
+$whereClause = [];
+$params = [];
+
+if (isset($_GET['buscar_venta']) && trim($_GET['buscar_venta']) !== '') {
+    $whereClause[] = "id_venta = :id_venta";
+    $params[':id_venta'] = trim($_GET['buscar_venta']);
+}
+if (isset($_GET['buscar_estado']) && trim($_GET['buscar_estado']) !== '') {
+    $whereClause[] = "estado LIKE :estado";
+    $params[':estado'] = '%' . trim($_GET['buscar_estado']) . '%';
+}
+if (isset($_GET['buscar_fecha']) && trim($_GET['buscar_fecha']) !== '') {
+    $whereClause[] = "fecha_programada = :fecha";
+    $params[':fecha'] = trim($_GET['buscar_fecha']);
+}
+
+$sql = "SELECT * FROM entregas";
+if (!empty($whereClause)) {
+    $sql .= " WHERE " . implode(" AND ", $whereClause);
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +38,13 @@ require '../../conexion/verificar_sesion.php';
         .seleccionada { background-color: #2f578d !important; color: white !important; }
         .seleccionada .status { border: 1px solid white; color: #fff !important; }
         button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        
+        .search-box {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -41,15 +71,20 @@ require '../../conexion/verificar_sesion.php';
                     </div>
 
                     <div class="form-section">
-                        <input type="text" class="search-input" id="inputBuscarVenta" placeholder="Buscar por ID Venta" disabled>
-                        <input type="text" class="search-input" id="inputBuscarEstado" placeholder="Buscar por Estado" disabled>
-                        <input type="date" class="search-input" id="inputBuscarFecha" disabled>
+                        <form method="GET" action="">
+                            <input type="text" name="buscar_venta" class="search-box username-input" id="inputBuscarVenta" placeholder="Buscar por ID Venta" value="<?php echo isset($_GET['buscar_venta']) ? htmlspecialchars($_GET['buscar_venta']) : ''; ?>">
+                            <input type="text" name="buscar_estado" class="search-box username-input" id="inputBuscarEstado" placeholder="Buscar por Estado" value="<?php echo isset($_GET['buscar_estado']) ? htmlspecialchars($_GET['buscar_estado']) : ''; ?>">
+                            <input type="date" name="buscar_fecha" class="search-box username-input" id="inputBuscarFecha" value="<?php echo isset($_GET['buscar_fecha']) ? htmlspecialchars($_GET['buscar_fecha']) : ''; ?>">
+                            
+                            <div class="buttons-group">
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Consultar</button>
+                            </div>
+                        </form>
                         
                         <div class="buttons-group">
-                            <a href="entrega_agregar.php"><button class="btn btn-primary">Añadir</button></a>
-                            <button id="btn-eliminar" class="btn btn-primary" disabled>Eliminar</button>
-                            <button class="btn btn-primary" disabled>Consultar</button>
-                            <a id="link-modificar" href="entrega_modificar.php"><button id="btn-modificar" class="btn btn-primary" disabled>Cambiar</button></a>
+                            <a href="entrega_agregar.php" style="text-decoration: none; width: 100%;"><button class="btn btn-primary" style="width: 100%; margin-bottom: 5px;">Añadir</button></a>
+                            <button id="btn-eliminar" class="btn btn-primary" disabled style="width: 100%; margin-bottom: 5px;">Eliminar</button>
+                            <a id="link-modificar" href="entrega_modificar.php" style="text-decoration: none; width: 100%;"><button id="btn-modificar" class="btn btn-primary" disabled style="width: 100%;">Cambiar</button></a>
                         </div>
                     </div>
                 </aside>
@@ -68,24 +103,29 @@ require '../../conexion/verificar_sesion.php';
                             </thead>
                             <tbody>
                                 <?php
-                                $pdo = require '../../conexion/conexion.php';
                                 try {
-                                    $query = $pdo->query("SELECT * FROM entregas");
-                                    while ($row = $query->fetch()) {
-                                        // Asignar clases de estilo dependiendo del estado de la entrega
-                                        $claseEstado = 'pending';
-                                        if (strtolower($row['estado']) == 'entregado') {
-                                            $claseEstado = 'delivered';
-                                        } elseif (strtolower($row['estado']) == 'enviado') {
-                                            $claseEstado = 'in-transit';
-                                        }
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->execute($params);
+                                    $entregas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                        echo "<tr class='fila-entrega' data-id='{$row['id']}' data-venta='{$row['id_venta']}'>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['id_venta']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['fecha_programada']) . "</td>";
-                                        echo "<td><span class='status {$claseEstado}'>" . htmlspecialchars(ucfirst($row['estado'])) . "</span></td>";
-                                        echo "</tr>";
+                                    if (count($entregas) > 0) {
+                                        foreach ($entregas as $row) {
+                                            $claseEstado = 'pending';
+                                            if (strtolower($row['estado']) == 'entregado') {
+                                                $claseEstado = 'delivered';
+                                            } elseif (strtolower($row['estado']) == 'enviado') {
+                                                $claseEstado = 'in-transit';
+                                            }
+
+                                            echo "<tr class='fila-entrega' data-id='{$row['id']}' data-venta='{$row['id_venta']}'>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['id_venta']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['fecha_programada']) . "</td>";
+                                            echo "<td><span class='status {$claseEstado}'>" . htmlspecialchars(ucfirst($row['estado'])) . "</span></td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='4'>No se encontraron registros.</td></tr>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "<tr><td colspan='4'>Error: " . $e->getMessage() . "</td></tr>";
@@ -100,6 +140,7 @@ require '../../conexion/verificar_sesion.php';
     </div>
 
     <script>
+        let idSeleccionadoId = null;
         let idSeleccionado = null;
         let ventaSeleccionada = null;
 
@@ -116,7 +157,6 @@ require '../../conexion/verificar_sesion.php';
 
         document.querySelectorAll('.fila-entrega').forEach(fila => {
             fila.addEventListener('click', function() {
-                // Alternar selección
                 document.querySelectorAll('.fila-entrega').forEach(f => f.classList.remove('seleccionada'));
                 this.classList.add('seleccionada');
 
@@ -125,7 +165,6 @@ require '../../conexion/verificar_sesion.php';
 
                 profileLabel.innerText = "Entrega ID: " + idSeleccionado;
 
-                // Habilitar botones al seleccionar
                 btnEliminar.disabled = false;
                 btnModificar.disabled = false;
                 linkModificar.style.pointerEvents = 'auto';
