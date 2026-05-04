@@ -1,4 +1,14 @@
 <?php
+
+//MATERIA: Ingenieria de Software
+//TEMA: Desarrollo
+//SISTEMA: Sistema de destion de inventarios materiales de construccion sánchez
+//EQUIPO DE DESARROLLO: SGDevs
+//INTEGRANTES: Eduardo De la Cruz Cortez, Jose Luis Sánchez Reyna, Erick González Jiménez
+//FECHA: 3 DE MAYO DE 2026
+
+
+
 require '../conexion/verificar_sesion.php';
 ?>
 
@@ -10,6 +20,7 @@ require '../conexion/verificar_sesion.php';
     <title>Home Page</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/header.css">
+
 </head>
 <body>
 
