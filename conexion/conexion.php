@@ -2,10 +2,10 @@
 
 
 
-$host = 'localhost';
-$dbName = 'bd_materiales_sanchez';
-$user = 'root';
-$password = 'Eduardo10';
+$host = 'bnjl2t3noxnxdjhsej2s-mysql.services.clever-cloud.com';
+$dbName = 'bnjl2t3noxnxdjhsej2s';
+$user = 'uaw4cd6yx9pstbm0';
+$password = 'J0BJDbgy4mqMCT0KDLJI';
 $charset = 'utf8';
 
 $dsn = "mysql:host=$host;dbname=$dbName;charset=$charset";

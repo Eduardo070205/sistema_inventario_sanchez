@@ -1,9 +1,9 @@
 <?php
-// Forzar visualización de errores
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// 1. Conexión a la base de datos utilizando tu archivo de conexión
+
 $pdo = require __DIR__ . '/conexion/conexion.php';
 
 require_once(__DIR__ . '/tcpdf/tcpdf.php');
@@ -19,7 +19,7 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 10, 'Reporte generado automaticamente desde el sistema', 0, 1, 'C');
 $pdf->Ln(10);
 
-// 2. Obtener los datos reales de la base de datos
+
 try {
     $query = $pdo->query("SELECT id, fecha, total, id_cliente FROM ventas ORDER BY fecha DESC");
     $ventas = $query->fetchAll(PDO::FETCH_ASSOC);

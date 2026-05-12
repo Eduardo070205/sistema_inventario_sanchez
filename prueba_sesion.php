@@ -1,5 +1,5 @@
 <?php
-// Forzamos el inicio de sesión
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

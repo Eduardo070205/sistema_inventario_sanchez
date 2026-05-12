@@ -1,5 +1,5 @@
 <?php
-// Validación de sesión
+
 require $_SERVER['DOCUMENT_ROOT'] . '/Programa/conexion/verificar_sesion.php';
 
 if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != '1') { 

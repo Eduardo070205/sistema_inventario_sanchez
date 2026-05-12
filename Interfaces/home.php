@@ -56,9 +56,8 @@ require '../conexion/verificar_sesion.php';
                 <a href="inventario/inventario.php" class="action-card">Inventario</a>
                 
                 <?php 
-                // Verificar si el rol es de administrador (por ejemplo, id_rol = '1' o su equivalente)
-                $esAdmin = isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == '1'; // Cambia el valor '1' si es necesario
-                
+
+                $esAdmin = isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == '1'; 
                 if ($esAdmin) { 
                 ?>
                     <a href="usuarios/usuarios.php" class="action-card">Usuario</a>
